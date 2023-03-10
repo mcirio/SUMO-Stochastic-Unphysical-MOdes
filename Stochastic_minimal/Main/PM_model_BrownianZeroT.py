@@ -138,7 +138,7 @@ dynamics_average, sigma, dynamics_list = stoch.dynamics_average, stoch.sigma, st
 # dynamics_average, sigma, dynamics_list = average_dynamics(L,H_xi,xi_interpolated_list,c_list,t_list,psi0,n_noise,new_obs_list)
 
 # Saving
-pickle_out = open("./PM_3_minimal/Main/Data/data.dat",'wb')
+pickle_out = open("./SUMO-Stochastic-Unphysical-MOdes-/Stochastic_minimal/Main/Data/data.dat",'wb')
 saved_dict = {}
 
 saved_dict['units_freq'] = units_freq
