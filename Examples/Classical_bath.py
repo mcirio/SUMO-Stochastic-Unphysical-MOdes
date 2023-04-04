@@ -69,6 +69,7 @@ def corr(t):
     return ll * np.cos(w_corr * t) * np.exp(-Gamma*abs(t))
 
 L = TimeDepRates(H_S,s,corr,t_dynamics_list)
+print("Solving master equation with TD rates")
 dynamics_gam = mesolve(L, psi0, t_dynamics_list, [], obs_list).expect[0] # dynamics with rates
 
 
