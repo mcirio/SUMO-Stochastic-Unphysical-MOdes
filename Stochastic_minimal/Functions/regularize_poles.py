@@ -10,4 +10,4 @@ def regularize_poles(vec_w):
             vec_w_add.append(-w)
             vec_w_add.append(np.conj(-w))
     vec_w = vec_w + vec_w_add 
-    return vec_w
+    return np.array(vec_w)

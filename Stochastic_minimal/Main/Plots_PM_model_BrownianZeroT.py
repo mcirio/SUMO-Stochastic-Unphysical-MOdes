@@ -12,7 +12,7 @@ sys.path.append( mymodule_dir )
 import numpy as np
 import matplotlib.pyplot as plt
 
-pickle_in = open("./SUMO-Stochastic-Unphysical-MOdes-/Stochastic_minimal/Main/Data/data.dat",'rb')
+pickle_in = open("Git\SUMO-Stochastic-Unphysical-MOdes\Stochastic_minimal\Main\Data\data.dat",'rb')
 saved_dict = pickle.load(pickle_in)
 pickle_in.close()
 

@@ -38,6 +38,7 @@ class Stochastic_model():
         n_noise = stoch_params['n_noise'] 
 
         self.C_s, self.C_as = compute_correlations(J,beta,W_i,W_f,integration_limit,t_corr_list)
+        self.C_s, self.C_as = self.C_s.reshape(2001,), self.C_as.reshape(2001,)
         self.ordered_PM_parameters, self.C_as_fit, self.C_s_extra = fit(t_corr_list,self.C_as,n_as_exp)
 
         self.C_s_plus_extra = [x[0] + x[1] for x in zip(self.C_s,self.C_s_extra)]
@@ -48,5 +49,3 @@ class Stochastic_model():
 
         self.H_S, self.s, self.H_xi, self.L, self.psi0, self.new_obs_list, self.c_list = generate_PM_model(H_S,psi0_S,s,self.ordered_PM_parameters,obs_list,N_S,N_PM)
         self.dynamics_average, self.sigma, self.dynamics_list = average_dynamics(self.L,self.H_xi,self.xi_interpolated_list,self.c_list,t_list,self.psi0,n_noise,self.new_obs_list)
-    
-    

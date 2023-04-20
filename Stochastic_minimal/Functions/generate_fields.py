@@ -30,28 +30,32 @@ def generate_fields(t_corr_list,coeff_list,n_cut,n_noise):
         T = t_corr_list[-1]
         A = [] 
         print('Computing Matrix A ({length})'.format(length="t_corr_list"))
-        for t_index in progressbar(np.arange(0,len(t_corr_list))):
-            t = t_corr_list[t_index]
-        # for t in t_corr_list:
-            row = []
-            row.append(cmath.sqrt(coeff_list[0]))
-            for n in np.arange(1,n_cut+1):
-                row.append(cmath.sqrt(2.) * cmath.sqrt(coeff_list[n]) * np.cos(n*np.pi*t/T))
-                row.append(cmath.sqrt(2.) * cmath.sqrt(coeff_list[n]) * np.sin(n*np.pi*t/T))
-            A.append(row)
-        return A
-    def generate_xi(A,n_cut):
+
+        t = np.array(t_corr_list)
+        row = []
+        row.append(cmath.sqrt(coeff_list[0]))
+
+        for n in np.arange(1,n_cut+1):
+            row.append(cmath.sqrt(2.) * cmath.sqrt(coeff_list[n]) * np.cos(n*np.pi*t/T))
+            row.append(cmath.sqrt(2.) * cmath.sqrt(coeff_list[n]) * np.sin(n*np.pi*t/T))
+        A.append(row)
+
+        result_array = np.empty((2001, 1001), dtype=np.complex128)
+
+        for i, arr in enumerate(A[0]):
+            result_array[:, i] = arr
+    
+        return result_array
+
+    def generate_xi(A,n_cut,n_noise):
         mu = 0
         sigma = 1
-        xi_list = np.random.normal(mu, sigma, 2*n_cut+1)
+        xi_list = np.random.normal(mu, sigma, size=(2*n_cut+1,n_noise))
         xi_field = np.dot(A,xi_list)
-        return xi_field
+        return xi_field.T
     def generate_xi_list(A,n_cut,n_noise):
-        res = []
         print("Computing fields ({length})".format(length="n_noise"))
-        for _ in progressbar(np.arange(n_noise)):
-            res.append(generate_xi(A,n_cut))
-        return res
+        return generate_xi(A,n_cut,n_noise)
     def generate_interpolated_xi_list(xi_list,t_corr_list):
         T = t_corr_list[-1]
         xi_interpolated_list = []
