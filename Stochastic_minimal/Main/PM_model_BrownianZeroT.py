@@ -1,3 +1,7 @@
+import time
+
+start_time = time.time()
+
 import os
 import sys
 import pickle
@@ -72,7 +76,6 @@ t_corr_list = np.linspace(-T_corr,T_corr,2*N_corr+1)
 t_list_interp = np.linspace(-1.1*T,1.1*T,5000)
 w_list = np.linspace(0,3*w0,100)
 W_list = np.linspace(W_i,W_f,200)
-
 
 # Full PM model
 print('-Computing PM model')
@@ -165,3 +168,6 @@ pickle.dump(saved_dict,pickle_out)
 pickle_out.close()
 
 
+end_time = time.time()
+total_time = end_time - start_time
+print("Time taken:", total_time, "seconds")

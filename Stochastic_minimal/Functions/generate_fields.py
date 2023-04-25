@@ -40,7 +40,7 @@ def generate_fields(t_corr_list,coeff_list,n_cut,n_noise):
             row.append(cmath.sqrt(2.) * cmath.sqrt(coeff_list[n]) * np.sin(n*np.pi*t/T))
         A.append(row)
 
-        result_array = np.empty((2001, 1001), dtype=np.complex128)
+        result_array = np.empty((len(t_corr_list), 2*n_cut+1), dtype=np.complex128)
 
         for i, arr in enumerate(A[0]):
             result_array[:, i] = arr

@@ -38,7 +38,7 @@ class Stochastic_model():
         n_noise = stoch_params['n_noise'] 
 
         self.C_s, self.C_as = compute_correlations(J,beta,W_i,W_f,integration_limit,t_corr_list)
-        self.C_s, self.C_as = self.C_s.reshape(2001,), self.C_as.reshape(2001,)
+        self.C_s, self.C_as = self.C_s.reshape(len(t_corr_list),), self.C_as.reshape(len(t_corr_list),)
         self.ordered_PM_parameters, self.C_as_fit, self.C_s_extra = fit(t_corr_list,self.C_as,n_as_exp)
 
         self.C_s_plus_extra = [x[0] + x[1] for x in zip(self.C_s,self.C_s_extra)]
